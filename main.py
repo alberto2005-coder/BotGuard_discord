@@ -7,14 +7,10 @@ from dotenv import load_dotenv
 from datetime import datetime, timedelta
 from typing import Optional
 
-# Cargar variables de entorno
 load_dotenv()
 
-# Configuración del bot
 intents = discord.Intents.default()
-intents.members = True  # Necesario para el sistema de bienvenidas (on_member_join)
-# IMPORTANTE: Debes habilitar "Server Members Intent" en el Discord Developer Portal
-# para que el sistema de bienvenidas funcione correctamente
+intents.members = True  
 
 bot = commands.Bot(command_prefix='!', intents=intents)
 
@@ -29,7 +25,7 @@ TICKET_CATEGORIES = {
     'alianzas': {'name': 'Alianzas', 'emoji': '🤝'}
 }
 
-# IDs de roles y canales (configurar según tu servidor)
+
 STAFF_ROLE_ID = None  # ID del rol de staff
 TICKET_CATEGORY_ID = None  # ID de la categoría donde se crearán los tickets
 LOG_CHANNEL_ID = None  # ID del canal de logs
