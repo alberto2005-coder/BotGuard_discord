@@ -1,11 +1,13 @@
 import discord
 from discord.ext import commands
-from discord import app_commands
+from discord import app_commands, File
+import io
 import asyncio
 import os
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
 from typing import Optional
+from openai import OpenAI
 
 load_dotenv()
 
@@ -13,6 +15,12 @@ intents = discord.Intents.default()
 intents.members = True  
 
 bot = commands.Bot(command_prefix='!', intents=intents)
+# Configurar cliente de Groq
+groq_client = OpenAI(
+    api_key=os.getenv("GROQ_API_KEY"),
+    base_url="https://api.groq.com/openai/v1",
+)
+
 
 # Variables globales para el sistema de tickets
 TICKET_CATEGORIES = {
@@ -255,6 +263,31 @@ async def on_member_join(member):
                 
     except Exception as e:
         print(f"Error en sistema de bienvenidas: {e}")
+
+
+@bot.tree.command(name="ia", description="Pregunta algo a la IA")
+@app_commands.describe(prompt="Tu pregunta o instrucción")
+async def ia(interaction: discord.Interaction, prompt: str):
+    await interaction.response.defer()  # Muestra "pensando..."
+    try:
+        response = groq_client.responses.create(
+            model="openai/gpt-oss-20b",
+            input=prompt,
+        )
+
+        output = response.output_text
+
+        if len(output) > 2000:
+            # Crear archivo .txt en memoria
+            buffer = io.BytesIO(output.encode("utf-8"))
+            file = File(buffer, filename="respuesta_ia.txt")
+            await interaction.followup.send("📄 La respuesta es demasiado larga, aquí tienes el archivo:", file=file)
+        else:
+            await interaction.followup.send(output)
+
+    except Exception as e:
+        await interaction.followup.send(f"⚠️ Error: {str(e)}")
+
 
 # Comando para crear el panel de tickets
 @bot.tree.command(name="panel_tickets", description="Crea el panel de tickets interactivo")
