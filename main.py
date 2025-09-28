@@ -198,6 +198,13 @@ class ConfirmCloseView(discord.ui.View):
 async def on_ready():
     print(f'Bot conectado como {bot.user}')
     
+    await bot.change_presence(
+        status=discord.Status.online,  # online, idle, dnd, invisible
+        activity=discord.Activity(
+            type=discord.ActivityType.playing,  # "Jugando"
+            name="Building secure code, one line at a time 💻"
+        )
+    )
     # Sincronizar comandos slash
     try:
         synced = await bot.tree.sync()
