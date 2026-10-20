@@ -84,3 +84,95 @@ Bot de Discord completo con sistema de tickets interactivo y comandos de moderac
 - Sistema de logs automático para auditoría
 - Manejo de errores y mensajes informativos
 - Interfaz completamente en español
+
+---
+
+# English Version
+
+# Discord Ticketing and Moderation Bot
+
+## Description
+A complete Discord bot with an interactive ticket system and moderation commands for programming and cybersecurity servers.
+
+## Implemented Features
+
+### Ticket System
+- ✅ Interactive panel with buttons to create tickets
+- ✅ 7 ticket categories:
+  - 💻 Programming Support
+  - 🔒 Cybersecurity Support
+  - 🚨 Report a User
+  - 💡 Suggestions
+  - 👨‍💼 Staff Application
+  - 🏷️ Request Roles
+  - 🤝 Alliances
+- ✅ Automatic creation of private channels
+- ✅ Ticket closing system with confirmation
+- ✅ Automatic logs of creation and closing
+
+### Moderation Slash Commands
+- ✅ `/ban` - Ban users
+- ✅ `/kick` - Kick users
+- ✅ `/timeout` - Temporarily mute users
+- ✅ `/untimeout` - Remove mute from users
+- ✅ `/clear` - Delete messages from the channel
+
+### Additional Features
+- ✅ `/embed` - Create custom embed messages
+- ✅ `/panel_tickets` - Create the interactive ticket panel
+- ✅ `/config` - Configure staff roles, categories and log channels
+- ✅ `/config_welcome` - Configure the automatic welcome system
+
+### Welcome System
+- ✅ Automatic welcome message with custom embed
+- ✅ Automatic role assignment to new members
+- ✅ Logs of new members in the moderation channel
+- ✅ Full configuration via the `/config_welcome` command
+
+## Project Status
+- **Bot Status**: ⚠️ REQUIRES CONFIGURATION
+- **Synced Commands**: ✅ 9 slash commands (including the welcome system)
+- **Discord Connection**: ⚠️ Requires enabling "Server Members Intent"
+
+## Required Configuration
+
+### For Server Administrators
+1. **Configure the bot using `/config`**:
+   - Set the staff role for ticket access
+   - Define the category where tickets are created
+   - Configure the log channel for moderation
+
+2. **Enable Privileged Intents** (REQUIRED for the welcome system):
+   - Go to https://discord.com/developers/applications/
+   - Select your bot application
+   - In the "Bot" section, enable:
+     - **Server Members Intent** (MANDATORY for welcomes)
+     - Message Content Intent (recommended for commands)
+   - Without "Server Members Intent" the welcome system will NOT work
+
+3. **Configure the welcome system using `/config_welcome`**:
+   - Set the welcome channel: `/config_welcome welcome_channel:#bienvenidas`
+   - Enable the system: `/config_welcome enable:True`
+   - Auto role (optional): `/config_welcome welcome_role:@NewMember`
+
+### Using the Ticket System
+1. Run `/panel_tickets` in the desired channel
+2. Users can click the buttons to create tickets
+3. Private channels are created automatically
+4. Staff can close tickets using the "🔒 Close Ticket" button
+
+## Technologies Used
+- Python 3.11
+- discord.py 2.6.3
+- python-dotenv
+- Slash Commands (Interactions API)
+- Discord UI Components (Buttons, Views)
+
+## Technical Notes
+- The bot uses basic intents by default (no special privileges required)
+- **For the welcome system:** Requires enabling "Server Members Intent"
+- All commands include permission checks
+- Automatic logging system for auditing
+- Error handling and informative messages
+- Interface fully in Spanish
+
