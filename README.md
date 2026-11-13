@@ -1,178 +1,245 @@
-# Discord Bot de Tickets y Moderación
+# BotGuard — tickets y moderación para Discord
 
-## Descripción
-Bot de Discord completo con sistema de tickets interactivo y comandos de moderación para servidores de programación y ciberseguridad.
+[![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![discord.py](https://img.shields.io/badge/discord.py-2.x-5865F2?logo=discord&logoColor=white)](https://discordpy.readthedocs.io/)
+[![MIT](https://img.shields.io/badge/Licencia-MIT-green)](LICENSE)
 
-## Características Implementadas
-
-### Sistema de Tickets
-- ✅ Panel interactivo con botones para crear tickets
-- ✅ 7 categorías de tickets:
-  - 💻 Soporte Programación
-  - 🔒 Soporte Ciberseguridad  
-  - 🚨 Reportar Usuario
-  - 💡 Sugerencias
-  - 👨‍💼 Postulación Staff
-  - 🏷️ Solicitar Roles
-  - 🤝 Alianzas
-- ✅ Creación automática de canales privados
-- ✅ Sistema de cierre de tickets con confirmación
-- ✅ Logs automáticos de creación y cierre
-
-### Comandos Slash de Moderación
-- ✅ `/ban` - Banear usuarios
-- ✅ `/kick` - Expulsar usuarios
-- ✅ `/timeout` - Silenciar temporalmente usuarios
-- ✅ `/untimeout` - Quitar silencio a usuarios
-- ✅ `/clear` - Eliminar mensajes del canal
-
-### Funcionalidades Adicionales
-- ✅ `/embed` - Crear mensajes embed personalizados
-- ✅ `/panel_tickets` - Crear panel de tickets interactivo
-- ✅ `/config` - Configurar roles de staff, categorías y canales de logs
-- ✅ `/config_welcome` - Configurar sistema de bienvenidas automático
-
-### Sistema de Bienvenidas
-- ✅ Mensaje automático de bienvenida con embed personalizado
-- ✅ Asignación automática de roles a nuevos miembros
-- ✅ Logs de nuevos miembros en canal de moderación
-- ✅ Configuración completa a través de comando `/config_welcome`
-
-## Estado del Proyecto
-- **Bot Status**: ⚠️ REQUIERE CONFIGURACIÓN
-- **Comandos Sincronizados**: ✅ 9 comandos slash (incluye sistema de bienvenidas)
-- **Conexión Discord**: ⚠️ Requiere habilitar "Server Members Intent"
-
-## Configuración Requerida
-
-### Para Administradores del Servidor
-1. **Configurar el bot usando `/config`**:
-   - Establecer rol de staff para acceso a tickets
-   - Definir categoría donde crear tickets
-   - Configurar canal de logs para moderación
-
-2. **Habilitar Intents Privilegiados** (REQUERIDO para sistema de bienvenidas):
-   - Ve a https://discord.com/developers/applications/
-   - Selecciona tu aplicación bot
-   - En la sección "Bot", habilita:
-     - **Server Members Intent** (OBLIGATORIO para bienvenidas)
-     - Message Content Intent (recomendado para comandos)
-   - Sin "Server Members Intent" el sistema de bienvenidas NO funcionará
-
-3. **Configurar el sistema de bienvenidas usando `/config_welcome`**:
-   - Establecer canal de bienvenidas: `/config_welcome welcome_channel:#bienvenidas`
-   - Activar el sistema: `/config_welcome enable:True`
-   - Rol automático (opcional): `/config_welcome welcome_role:@NuevoMiembro`
-
-### Uso del Sistema de Tickets
-1. Ejecuta `/panel_tickets` en el canal deseado
-2. Los usuarios podrán hacer clic en los botones para crear tickets
-3. Se crearán canales privados automáticamente
-4. El staff puede cerrar tickets usando el botón "🔒 Cerrar Ticket"
-
-## Tecnologías Utilizadas
-- Python 3.11
-- discord.py 2.6.3
-- python-dotenv
-- Slash Commands (Interactions API)
-- Discord UI Components (Buttons, Views)
-
-## Notas Técnicas
-- El bot usa intents básicos por defecto (no requiere privilegios especiales)
-- **Para el sistema de bienvenidas:** Requiere habilitar "Server Members Intent"
-- Todos los comandos incluyen verificación de permisos
-- Sistema de logs automático para auditoría
-- Manejo de errores y mensajes informativos
-- Interfaz completamente en español
+[Español](#español) · [English](#english)
 
 ---
 
-# English Version
+## Español
 
-# Discord Ticketing and Moderation Bot
+### Índice
 
-## Description
-A complete Discord bot with an interactive ticket system and moderation commands for programming and cybersecurity servers.
+- [Descripción](#descripción)
+- [Sistema de tickets](#sistema-de-tickets)
+- [Comandos](#comandos)
+- [Sistema de bienvenidas](#sistema-de-bienvenidas)
+- [Estructura del proyecto](#estructura-del-proyecto)
+- [Requisitos](#requisitos)
+- [Instalación](#instalación)
+- [Configuración](#configuración)
+- [Licencia](#licencia)
 
-## Implemented Features
+### Descripción
 
-### Ticket System
-- ✅ Interactive panel with buttons to create tickets
-- ✅ 7 ticket categories:
-  - 💻 Programming Support
-  - 🔒 Cybersecurity Support
-  - 🚨 Report a User
-  - 💡 Suggestions
-  - 👨‍💼 Staff Application
-  - 🏷️ Request Roles
-  - 🤝 Alliances
-- ✅ Automatic creation of private channels
-- ✅ Ticket closing system with confirmation
-- ✅ Automatic logs of creation and closing
+**BotGuard** es un bot de Discord en **Python** pensado para servidores de programación y ciberseguridad. Combina un sistema de **tickets** con botones y canales privados, comandos de **moderación**, mensajes embed, bienvenidas automáticas y un comando de **IA** conectado a Groq.
 
-### Moderation Slash Commands
-- ✅ `/ban` - Ban users
-- ✅ `/kick` - Kick users
-- ✅ `/timeout` - Temporarily mute users
-- ✅ `/untimeout` - Remove mute from users
-- ✅ `/clear` - Delete messages from the channel
+La interfaz del bot está en español.
 
-### Additional Features
-- ✅ `/embed` - Create custom embed messages
-- ✅ `/panel_tickets` - Create the interactive ticket panel
-- ✅ `/config` - Configure staff roles, categories and log channels
-- ✅ `/config_welcome` - Configure the automatic welcome system
+### Sistema de tickets
 
-### Welcome System
-- ✅ Automatic welcome message with custom embed
-- ✅ Automatic role assignment to new members
-- ✅ Logs of new members in the moderation channel
-- ✅ Full configuration via the `/config_welcome` command
+- Panel interactivo creado con `/panel_tickets`.
+- Siete categorías: soporte de programación, ciberseguridad, reportar usuario, sugerencias, postulación de staff, solicitud de roles y alianzas.
+- Cada ticket crea un **canal privado** visible solo para el usuario y el staff.
+- Cierre con confirmación desde el propio ticket.
+- **Logs automáticos** de apertura y cierre.
 
-## Project Status
-- **Bot Status**: ⚠️ REQUIRES CONFIGURATION
-- **Synced Commands**: ✅ 9 slash commands (including the welcome system)
-- **Discord Connection**: ⚠️ Requires enabling "Server Members Intent"
+### Comandos
 
-## Required Configuration
+| Comando | Qué hace |
+|---|---|
+| `/panel_tickets` | Publica el panel de tickets con botones |
+| `/config` | Configura rol de staff, categoría de tickets y canal de logs |
+| `/config_welcome` | Configura canal, rol automático y activación de bienvenidas |
+| `/ban` | Banea a un usuario |
+| `/kick` | Expulsa a un usuario |
+| `/timeout` | Silencia temporalmente |
+| `/untimeout` | Retira el silencio |
+| `/clear` | Borra mensajes del canal |
+| `/embed` | Crea un mensaje embed personalizado |
+| `/ia` | Consulta el modelo de Groq configurado |
 
-### For Server Administrators
-1. **Configure the bot using `/config`**:
-   - Set the staff role for ticket access
-   - Define the category where tickets are created
-   - Configure the log channel for moderation
+Todos los comandos de moderación comprueban permisos antes de actuar.
 
-2. **Enable Privileged Intents** (REQUIRED for the welcome system):
-   - Go to https://discord.com/developers/applications/
-   - Select your bot application
-   - In the "Bot" section, enable:
-     - **Server Members Intent** (MANDATORY for welcomes)
-     - Message Content Intent (recommended for commands)
-   - Without "Server Members Intent" the welcome system will NOT work
+### Sistema de bienvenidas
 
-3. **Configure the welcome system using `/config_welcome`**:
-   - Set the welcome channel: `/config_welcome welcome_channel:#bienvenidas`
-   - Enable the system: `/config_welcome enable:True`
-   - Auto role (optional): `/config_welcome welcome_role:@NewMember`
+- Mensaje de bienvenida con embed personalizable.
+- Asignación automática de un rol a los nuevos miembros.
+- Registro de nuevas incorporaciones en el canal de moderación.
+- Se activa y configura con `/config_welcome`.
 
-### Using the Ticket System
-1. Run `/panel_tickets` in the desired channel
-2. Users can click the buttons to create tickets
-3. Private channels are created automatically
-4. Staff can close tickets using the "🔒 Close Ticket" button
+### Estructura del proyecto
 
-## Technologies Used
-- Python 3.11
-- discord.py 2.6.3
-- python-dotenv
-- Slash Commands (Interactions API)
-- Discord UI Components (Buttons, Views)
+```text
+BotGuard_discord/
+├── main.py            # Bot, tickets, moderación, bienvenidas e IA
+├── requirements.txt
+├── .env.example       # Variables necesarias
+├── LICENSE
+└── README.md
+```
 
-## Technical Notes
-- The bot uses basic intents by default (no special privileges required)
-- **For the welcome system:** Requires enabling "Server Members Intent"
-- All commands include permission checks
-- Automatic logging system for auditing
-- Error handling and informative messages
-- Interface fully in Spanish
+### Requisitos
 
+- **Python 3.11** o superior.
+- Una aplicación de bot en el [Discord Developer Portal](https://discord.com/developers/applications).
+- Una clave de **Groq** si quieres usar `/ia`.
+- Permisos de **bot**, **applications.commands** y **Manage Channels**, **Manage Roles**, **Kick Members**, **Ban Members** y **Moderate Members** según lo que vayas a usar.
+
+### Instalación
+
+```bash
+git clone https://github.com/alberto2005-coder/BotGuard_discord.git
+cd BotGuard_discord
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# macOS / Linux
+source .venv/bin/activate
+
+pip install discord.py python-dotenv openai
+```
+
+> [!NOTE]
+> `requirements.txt` incluye tanto `discord.py` como `py-cord`. Ambos instaladores exponen el módulo `discord`, así que pueden pisarse: instala solo uno. El código usa **discord.py**, que es el que se indica arriba.
+
+### Configuración
+
+Copia `.env.example` a `.env` y rellena los valores:
+
+```env
+DISCORD_BOT_TOKEN=tu_token_de_discord
+GROQ_API_KEY=tu_api_key_de_groq
+```
+
+Después:
+
+1. En el portal de Discord, abre tu aplicación → **Bot** y activa **Server Members Intent** (obligatorio para las bienvenidas).
+2. Invita el bot con los scopes `bot` y `applications.commands`.
+3. Arranca el bot:
+
+```bash
+python main.py
+```
+
+4. En el servidor, ejecuta `/config` para asignar rol de staff, categoría de tickets y canal de logs.
+5. Publica el panel con `/panel_tickets` en el canal deseado.
+6. Configura las bienvenidas con `/config_welcome`.
+
+> [!IMPORTANT]
+> No subas `.env` al repositorio. Si el token se filtra, regeneralo en el portal: cualquiera con ese token controla el bot.
+
+### Licencia
+
+**MIT** — consulta [LICENSE](LICENSE).
+
+---
+
+## English
+
+### Table of contents
+
+- [Overview](#overview)
+- [Ticket system](#ticket-system)
+- [Commands](#commands)
+- [Welcome system](#welcome-system)
+- [Project structure](#project-structure)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [License](#license)
+
+### Overview
+
+**BotGuard** is a **Python** Discord bot aimed at programming and cybersecurity servers. It combines a button-driven **ticket** system with private channels, **moderation** commands, embed messages, automatic welcomes and an **AI** command backed by Groq.
+
+The bot's interface is in Spanish.
+
+### Ticket system
+
+- Interactive panel created with `/panel_tickets`.
+- Seven categories: programming support, cybersecurity, report a user, suggestions, staff applications, role requests and partnerships.
+- Each ticket creates a **private channel** visible only to the user and staff.
+- Closing requires confirmation from inside the ticket.
+- **Automatic logs** for opening and closing.
+
+### Commands
+
+| Command | What it does |
+|---|---|
+| `/panel_tickets` | Publishes the button-based ticket panel |
+| `/config` | Sets the staff role, ticket category and log channel |
+| `/config_welcome` | Sets the welcome channel, auto role and enable flag |
+| `/ban` | Bans a user |
+| `/kick` | Kicks a user |
+| `/timeout` | Temporarily mutes a user |
+| `/untimeout` | Removes the mute |
+| `/clear` | Deletes channel messages |
+| `/embed` | Builds a custom embed message |
+| `/ia` | Queries the configured Groq model |
+
+Every moderation command checks permissions before acting.
+
+### Welcome system
+
+- Customisable embed welcome message.
+- Automatic role assignment for new members.
+- New-joiner logs in the moderation channel.
+- Enabled and configured through `/config_welcome`.
+
+### Project structure
+
+```text
+BotGuard_discord/
+├── main.py            # Bot, tickets, moderation, welcomes and AI
+├── requirements.txt
+├── .env.example       # Required variables
+├── LICENSE
+└── README.md
+```
+
+### Requirements
+
+- **Python 3.11** or later.
+- A bot application in the [Discord Developer Portal](https://discord.com/developers/applications).
+- A **Groq** key if you want to use `/ia`.
+- **bot** and **applications.commands** scopes, plus **Manage Channels**, **Manage Roles**, **Kick Members**, **Ban Members** and **Moderate Members** depending on what you enable.
+
+### Installation
+
+```bash
+git clone https://github.com/alberto2005-coder/BotGuard_discord.git
+cd BotGuard_discord
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# macOS / Linux
+source .venv/bin/activate
+
+pip install discord.py python-dotenv openai
+```
+
+> [!NOTE]
+> `requirements.txt` lists both `discord.py` and `py-cord`. Both installers expose the `discord` module, so they can overwrite each other: install only one. The code uses **discord.py**, which is the one shown above.
+
+### Configuration
+
+Copy `.env.example` to `.env` and fill in the values:
+
+```env
+DISCORD_BOT_TOKEN=your_discord_token
+GROQ_API_KEY=your_groq_key
+```
+
+Then:
+
+1. In the Discord portal, open your application → **Bot** and enable **Server Members Intent** (required for welcomes).
+2. Invite the bot with the `bot` and `applications.commands` scopes.
+3. Start the bot:
+
+```bash
+python main.py
+```
+
+4. On the server, run `/config` to set the staff role, ticket category and log channel.
+5. Publish the panel with `/panel_tickets` in the desired channel.
+6. Configure welcomes with `/config_welcome`.
+
+> [!IMPORTANT]
+> Never commit `.env`. If the token leaks, regenerate it in the portal: anyone holding it controls the bot.
+
+### License
+
+**MIT** — see [LICENSE](LICENSE).
